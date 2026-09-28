@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔐 XOR Stream Cipher & One-Time Pad (OTP) Interactive Demo
 
-## Getting Started
+Aplikasi web interaktif untuk memvisualisasikan mekanisme enkripsi dan dekripsi **XOR Stream Cipher**, simulasi **One-Time Pad (OTP)**, serta demonstrasi serangan kelemahan **Key Reuse Attack (Two-Time Pad)**. 
 
-First, run the development server:
+Proyek ini dibangun menggunakan **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, dan menerapkan pola arsitektur **Atomic Design**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.0-38BDF8?style=flat-square&logo=tailwind-css)
+![License](https://img.shields.io/badge/Academic-Project-green?style=flat-square)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📌 Anggota Kelompok & Mata Kuliah
+- **Mata Kuliah**: Kriptografi dan Keamanan Informasi
+- **Topik**: XOR Stream Cipher & One-Time Pad (OTP)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ✨ Fitur Utama
 
-To learn more about Next.js, take a look at the following resources:
+1. **🔒 Enkripsi (Encryption)**
+   - Mengubah *Plaintext* dan *Key* menjadi nilai ASCII/Biner.
+   - Mengoperasikan logika XOR per byte ($P \oplus K = C$).
+   - Output *Ciphertext* ditampilkan dalam format **Hexadecimal** agar *printable* dan terhindar dari karakter kontrol yang tak terlihat.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **🔓 Dekripsi (Decryption)**
+   - Menerima *Ciphertext* dalam format Hexadecimal dan *Key*.
+   - Melakukan operasi XOR sebaliknya ($C \oplus K = P$) untuk memulihkan *Plaintext* asli.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **🚨 Input Validation & Error Handling**
+   - Mencegah *crash* aplikasi jika input kosong atau kunci kurang panjang.
+   - Menampilkan *Alert UI* dinamis sesuai syarat OTP (Panjang kunci minimal harus sama dengan panjang pesan).
 
-## Deploy on Vercel
+4. **💥 Security Attack Feature: Key Reuse Attack (Two-Time Pad)**
+   - Simulasi bahaya penggunaan kunci tunggal untuk dua pesan berbeda ($M_1$ dan $M_2$).
+   - Membuktikan secara matematis bahwa $C_1 \oplus C_2 = M_1 \oplus M_2$, yang membatalkan fungsi kerahasiaan kunci.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. **🧪 Automated Test Cases**
+   - Dilengkapi minimal 3 kasus uji (*test cases*) bawaan.
+   - Sistem melakukan verifikasi otomatis antara *Your Output* dan *Expected Output* serta memberikan indikator **PASS** / **FAIL**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+6. **📜 OTP Requirements Section**
+   - Edukasi visual mengenai 4 syarat mutlak One-Time Pad (Truly Random, Key Length $\ge$ Message, Kept Secret, Never Reused).
+
+---
+
+## 🧮 Logika & Rumus Kriptografi
+
+Operasi dasar yang digunakan adalah bitwise **XOR** ($\oplus$):
+
+* **Enkripsi**: $C = P \oplus K$
+* **Dekripsi**: $P = C \oplus K$
+* **Key Reuse Proof**:
+  $$C_1 = P_1 \oplus K$$
+  $$C_2 = P_2 \oplus K$$
+  $$C_1 \oplus C_2 = (P_1 \oplus K) \oplus (P_2 \oplus K) = P_1 \oplus P_2$$
+
+---
+
+## 🏗️ Arsitektur Proyek (Atomic Design)
+
+Kode diorganisir menggunakan metodologi **Atomic Design** agar modular, mudah dikembangkan (*scalable*), dan *reusable*:
+
+```text
+xor-otp-web/
+├── components/
+│   ├── atoms/             # Komponen paling dasar (Button, Input, Badge)
+│   ├── molecules/         # Gabungan Atoms (FormGroup, Alert)
+│   └── organisms/         # Fitur utama utuh (EncryptionSection, AttackDemo, dll)
+├── utils/
+│   └── crypto.ts          # Pure functions logika XOR, konversi Hex & ASCII
+└── app/
+    └── page.tsx           # Main Page / Layout
