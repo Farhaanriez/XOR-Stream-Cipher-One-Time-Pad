@@ -2,7 +2,7 @@
 
 Aplikasi web interaktif untuk memvisualisasikan mekanisme enkripsi dan dekripsi **XOR Stream Cipher**, simulasi **One-Time Pad (OTP)**, serta demonstrasi serangan kelemahan **Key Reuse Attack (Two-Time Pad)**. 
 
-Proyek ini dibangun menggunakan **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**, dan menerapkan pola arsitektur **Atomic Design**.
+Proyek ini dibangun menggunakan **Next.js (App Router)**, **TypeScript**, **Tailwind CSS**.
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)
@@ -55,20 +55,3 @@ Operasi dasar yang digunakan adalah bitwise **XOR** ($\oplus$):
   $$C_1 = P_1 \oplus K$$
   $$C_2 = P_2 \oplus K$$
   $$C_1 \oplus C_2 = (P_1 \oplus K) \oplus (P_2 \oplus K) = P_1 \oplus P_2$$
-
----
-
-## 🏗️ Arsitektur Proyek (Atomic Design)
-
-Kode diorganisir menggunakan metodologi **Atomic Design** agar modular, mudah dikembangkan (*scalable*), dan *reusable*:
-
-```text
-xor-otp-web/
-├── components/
-│   ├── atoms/             # Komponen paling dasar (Button, Input, Badge)
-│   ├── molecules/         # Gabungan Atoms (FormGroup, Alert)
-│   └── organisms/         # Fitur utama utuh (EncryptionSection, AttackDemo, dll)
-├── utils/
-│   └── crypto.ts          # Pure functions logika XOR, konversi Hex & ASCII
-└── app/
-    └── page.tsx           # Main Page / Layout
