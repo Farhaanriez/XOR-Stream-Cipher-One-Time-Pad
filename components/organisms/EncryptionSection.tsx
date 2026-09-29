@@ -6,14 +6,7 @@ import FormGroup from "@/components/molecules/FormGroup";
 import Alert from "@/components/molecules/Alert";
 import ResultField from "@/components/molecules/ResultField";
 import StepsTable from "@/components/molecules/StepsTable";
-import {
-  XorStep,
-  buildSteps,
-  bytesToHex,
-  stringToBytes,
-  validateEncrypt,
-  xorBytes,
-} from "@/utils/crypto";
+import { XorStep, buildSteps, bytesToHex, stringToBytes, validateEncrypt, xorBytes } from "@/utils/crypto";
 
 interface Result {
   keystreamHex: string;
@@ -45,42 +38,27 @@ export default function EncryptionSection() {
   };
 
   return (
-    <section id="encrypt" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-bold text-slate-900">🔒 Enkripsi</h2>
-      <p className="mt-1 text-sm text-slate-500">Plaintext ⊕ Keystream → Ciphertext (Hex)</p>
+    <div className="mx-auto max-w-4xl space-y-6 p-6">
+      <header className="border-b border-slate-800 pb-3">
+        <p className="font-mono text-xs uppercase tracking-widest text-emerald-500">Module 01</p>
+        <h2 className="font-mono text-xl font-bold text-slate-100">Encryption Engine</h2>
+        <p className="mt-1 font-mono text-xs text-slate-500">Plaintext ⊕ Keystream = Ciphertext (Hex)</p>
+      </header>
 
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
-        <FormGroup
-          id="enc-plaintext"
-          label="Plaintext"
-          value={plaintext}
-          onChange={(e) => setPlaintext(e.target.value)}
-          placeholder="Ketik pesan..."
-          hasError={!!error}
-        />
-        <FormGroup
-          id="enc-key"
-          label="Kunci"
-          value={key}
-          onChange={(e) => setKey(e.target.value)}
+      <div className="grid gap-4 md:grid-cols-2">
+        <FormGroup id="enc-plaintext" label="Plaintext" value={plaintext}
+          onChange={(e) => setPlaintext(e.target.value)} placeholder="Ketik pesan..." hasError={!!error} />
+        <FormGroup id="enc-key" label="Key" value={key} onChange={(e) => setKey(e.target.value)}
           placeholder="Minimal sepanjang pesan"
-          hint={`Panjang kunci: ${key.length} | Panjang pesan: ${plaintext.length}`}
-          hasError={!!error}
-        />
+          hint={`key_len=${key.length}  msg_len=${plaintext.length}`} hasError={!!error} />
       </div>
 
-      <div className="mt-4">
-        <Button onClick={handleEncrypt}>Enkripsi</Button>
-      </div>
+      <Button onClick={handleEncrypt}>Run Encrypt</Button>
 
-      {error && (
-        <div className="mt-4">
-          <Alert variant="error" title="Validasi gagal">{error}</Alert>
-        </div>
-      )}
+      {error && <Alert variant="error" title="Validation Failed">{error}</Alert>}
 
       {result && (
-        <div className="mt-6 space-y-4">
+        <div className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
             <ResultField label="Keystream (Hex)" value={result.keystreamHex} />
             <ResultField label="Ciphertext (Hex)" value={result.cipherHex} tone="accent" />
@@ -88,6 +66,6 @@ export default function EncryptionSection() {
           <StepsTable steps={result.steps} inputLabel="Plaintext" outputLabel="Ciphertext" />
         </div>
       )}
-    </section>
+    </div>
   );
 }

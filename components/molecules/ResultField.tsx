@@ -8,16 +8,14 @@ export default function ResultField({
   tone?: "default" | "accent" | "success";
 }) {
   const tones = {
-    default: "border-slate-200 bg-slate-50 text-slate-800",
-    accent: "border-indigo-200 bg-indigo-50 text-indigo-900",
-    success: "border-emerald-200 bg-emerald-50 text-emerald-900",
+    default: "border-slate-800 bg-slate-950 text-slate-300",
+    accent: "border-cyan-500/30 bg-cyan-500/5 text-cyan-300",
+    success: "border-emerald-500/30 bg-emerald-500/5 text-emerald-300",
   };
   return (
     <div>
-      <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-slate-500">
-        {label}
-      </p>
-      <p className={`break-all rounded-lg border px-3 py-2 font-mono text-sm ${tones[tone]}`}>
+      <p className="mb-1 font-mono text-[11px] uppercase tracking-widest text-slate-600">{label}</p>
+      <p className={`break-all rounded-md border px-3 py-2 font-mono text-sm ${tones[tone]}`}>
         {value || "—"}
       </p>
     </div>

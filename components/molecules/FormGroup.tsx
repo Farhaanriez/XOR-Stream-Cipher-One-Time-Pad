@@ -6,24 +6,16 @@ interface FormGroupProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   hint?: string;
   hasError?: boolean;
-  mono?: boolean;
 }
 
-export default function FormGroup({
-  label,
-  id,
-  hint,
-  hasError,
-  mono,
-  ...inputProps
-}: FormGroupProps) {
+export default function FormGroup({ label, id, hint, hasError, ...inputProps }: FormGroupProps) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-semibold text-slate-700">
+      <label htmlFor={id} className="block font-mono text-xs uppercase tracking-widest text-slate-500">
         {label}
       </label>
-      <Input id={id} hasError={hasError} mono={mono} {...inputProps} />
-      {hint && <p className="text-xs text-slate-500">{hint}</p>}
+      <Input id={id} hasError={hasError} {...inputProps} />
+      {hint && <p className="font-mono text-[11px] text-slate-600">{hint}</p>}
     </div>
   );
 }

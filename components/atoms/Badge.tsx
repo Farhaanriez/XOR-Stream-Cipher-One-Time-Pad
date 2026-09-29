@@ -3,10 +3,10 @@ import { ReactNode } from "react";
 type BadgeVariant = "pass" | "fail" | "info" | "neutral";
 
 const styles: Record<BadgeVariant, string> = {
-  pass: "bg-emerald-100 text-emerald-700 ring-emerald-200",
-  fail: "bg-rose-100 text-rose-700 ring-rose-200",
-  info: "bg-indigo-100 text-indigo-700 ring-indigo-200",
-  neutral: "bg-slate-100 text-slate-600 ring-slate-200",
+  pass: "bg-emerald-500/10 text-emerald-400 ring-emerald-500/30",
+  fail: "bg-red-500/10 text-red-400 ring-red-500/30",
+  info: "bg-cyan-500/10 text-cyan-400 ring-cyan-500/30",
+  neutral: "bg-slate-800 text-slate-400 ring-slate-700",
 };
 
 export default function Badge({
@@ -18,7 +18,7 @@ export default function Badge({
 }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold tracking-wide ring-1 ring-inset ${styles[variant]}`}
+      className={`inline-flex items-center rounded px-2 py-0.5 font-mono text-[11px] font-bold uppercase tracking-widest ring-1 ring-inset ${styles[variant]}`}
     >
       {children}
     </span>

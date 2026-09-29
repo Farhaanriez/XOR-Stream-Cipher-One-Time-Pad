@@ -2,23 +2,15 @@ import { InputHTMLAttributes } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   hasError?: boolean;
-  mono?: boolean;
 }
 
-export default function Input({
-  hasError = false,
-  mono = true,
-  className = "",
-  ...props
-}: InputProps) {
+export default function Input({ hasError = false, className = "", ...props }: InputProps) {
   return (
     <input
-      className={`w-full rounded-lg border bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:ring-4 ${
-        mono ? "font-mono" : ""
-      } ${
+      className={`w-full rounded-md border bg-slate-950 px-3 py-2 font-mono text-sm text-emerald-300 caret-emerald-400 outline-none transition placeholder:text-slate-600 focus:ring-2 ${
         hasError
-          ? "border-rose-400 focus:border-rose-500 focus:ring-rose-100"
-          : "border-slate-300 focus:border-indigo-500 focus:ring-indigo-100"
+          ? "border-red-500/60 focus:border-red-400 focus:ring-red-500/20"
+          : "border-slate-700 focus:border-emerald-500/60 focus:ring-emerald-500/20"
       } ${className}`}
       {...props}
     />

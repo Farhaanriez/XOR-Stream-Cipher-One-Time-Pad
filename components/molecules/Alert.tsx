@@ -1,12 +1,11 @@
 import { ReactNode } from "react";
 
-type AlertVariant = "error" | "success" | "info" | "warning";
+type AlertVariant = "error" | "success" | "info";
 
-const styles: Record<AlertVariant, { box: string; icon: string }> = {
-  error: { box: "border-rose-200 bg-rose-50 text-rose-800", icon: "⛔" },
-  success: { box: "border-emerald-200 bg-emerald-50 text-emerald-800", icon: "✅" },
-  info: { box: "border-indigo-200 bg-indigo-50 text-indigo-800", icon: "ℹ️" },
-  warning: { box: "border-amber-200 bg-amber-50 text-amber-800", icon: "⚠️" },
+const styles: Record<AlertVariant, { box: string; tag: string }> = {
+  error: { box: "border-red-500/30 bg-red-500/5 text-red-300", tag: "[ERROR]" },
+  success: { box: "border-emerald-500/30 bg-emerald-500/5 text-emerald-300", tag: "[OK]" },
+  info: { box: "border-cyan-500/30 bg-cyan-500/5 text-cyan-300", tag: "[INFO]" },
 };
 
 export default function Alert({
@@ -20,12 +19,11 @@ export default function Alert({
 }) {
   const s = styles[variant];
   return (
-    <div role="alert" className={`flex gap-3 rounded-lg border p-3 text-sm ${s.box}`}>
-      <span aria-hidden>{s.icon}</span>
-      <div>
-        {title && <p className="font-semibold">{title}</p>}
-        <div>{children}</div>
-      </div>
+    <div role="alert" className={`rounded-md border p-3 font-mono text-sm ${s.box}`}>
+      <p className="font-bold tracking-widest">
+        {s.tag} {title}
+      </p>
+      <div className="mt-1 text-slate-300/90">{children}</div>
     </div>
   );
 }

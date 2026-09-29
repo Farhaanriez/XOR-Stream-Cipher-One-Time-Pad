@@ -6,9 +6,9 @@ import Badge from "@/components/atoms/Badge";
 import { decrypt, encrypt } from "@/utils/crypto";
 
 const TEST_CASES = [
-  { name: "Kunci sama panjang", plaintext: "HELLO", key: "KEYKE", expected: "030015070a" },
-  { name: "Pesan pendek", plaintext: "Hi", key: "AB", expected: "092b" },
-  { name: "Alfanumerik", plaintext: "OTP123", key: "secret", expected: "3c3133435747" },
+  { name: "Equal-length key", plaintext: "HELLO", key: "KEYKE", expected: "030015070a" },
+  { name: "Short message", plaintext: "Hi", key: "AB", expected: "092b" },
+  { name: "Alphanumeric", plaintext: "OTP123", key: "secret", expected: "3c3133435747" },
 ];
 
 interface Row {
@@ -25,11 +25,7 @@ export default function TestCaseSection() {
       TEST_CASES.map((t) => {
         const actual = encrypt(t.plaintext, t.key);
         const decrypted = decrypt(actual, t.key);
-        return {
-          actual,
-          decrypted,
-          pass: actual === t.expected && decrypted === t.plaintext,
-        };
+        return { actual, decrypted, pass: actual === t.expected && decrypted === t.plaintext };
       })
     );
   };
@@ -37,53 +33,41 @@ export default function TestCaseSection() {
   const passed = rows?.filter((r) => r.pass).length ?? 0;
 
   return (
-    <section id="tests" className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
         <div>
-          <h2 className="text-xl font-bold text-slate-900">🧪 Test Cases</h2>
-          <p className="mt-1 text-sm text-slate-500">
-            Setiap kasus diuji: enkripsi cocok dengan expected <em>dan</em> dekripsi kembali ke plaintext.
-          </p>
+          <p className="font-mono text-xs uppercase tracking-widest text-emerald-500">Suite A</p>
+          <h3 className="font-mono text-lg font-bold text-slate-100">Test Cases</h3>
         </div>
         <div className="flex items-center gap-3">
-          {rows && (
-            <Badge variant={passed === TEST_CASES.length ? "pass" : "fail"}>
-              {passed}/{TEST_CASES.length} LULUS
-            </Badge>
-          )}
-          <Button onClick={runTests}>Jalankan Test</Button>
+          {rows && <Badge variant={passed === TEST_CASES.length ? "pass" : "fail"}>{passed}/{TEST_CASES.length} PASSED</Badge>}
+          <Button size="sm" onClick={runTests}>Run Tests</Button>
         </div>
       </div>
 
-      <div className="mt-5 overflow-x-auto rounded-lg border border-slate-200">
-        <table className="min-w-full text-sm">
-          <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+      <div className="mt-4 overflow-x-auto rounded-md border border-slate-800">
+        <table className="min-w-full font-mono text-xs">
+          <thead className="bg-slate-900 uppercase tracking-widest text-slate-500">
             <tr>
-              {["#", "Nama", "Plaintext", "Key", "Expected (Hex)", "Actual (Hex)", "Dekripsi", "Status"].map(
-                (h) => (
-                  <th key={h} className="whitespace-nowrap px-3 py-2 text-left font-semibold">{h}</th>
-                )
-              )}
+              {["#", "Name", "Plaintext", "Key", "Expected", "Actual", "Decrypted", "Status"].map((h) => (
+                <th key={h} className="whitespace-nowrap px-3 py-2 text-left">{h}</th>
+              ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-slate-800">
             {TEST_CASES.map((t, i) => {
               const r = rows?.[i];
               return (
-                <tr key={t.name} className="hover:bg-slate-50">
-                  <td className="px-3 py-2 text-slate-400">{i + 1}</td>
-                  <td className="px-3 py-2 font-medium text-slate-800">{t.name}</td>
-                  <td className="px-3 py-2 font-mono">{t.plaintext}</td>
-                  <td className="px-3 py-2 font-mono">{t.key}</td>
-                  <td className="px-3 py-2 font-mono">{t.expected}</td>
-                  <td className="px-3 py-2 font-mono">{r?.actual ?? "—"}</td>
-                  <td className="px-3 py-2 font-mono">{r?.decrypted ?? "—"}</td>
+                <tr key={t.name} className="hover:bg-slate-900/60">
+                  <td className="px-3 py-2 text-slate-600">{i + 1}</td>
+                  <td className="px-3 py-2 text-slate-300">{t.name}</td>
+                  <td className="px-3 py-2 text-slate-400">{t.plaintext}</td>
+                  <td className="px-3 py-2 text-slate-400">{t.key}</td>
+                  <td className="px-3 py-2 text-slate-400">{t.expected}</td>
+                  <td className="px-3 py-2 text-slate-400">{r?.actual ?? "—"}</td>
+                  <td className="px-3 py-2 text-slate-400">{r?.decrypted ?? "—"}</td>
                   <td className="px-3 py-2">
-                    {r ? (
-                      <Badge variant={r.pass ? "pass" : "fail"}>{r.pass ? "PASS" : "FAIL"}</Badge>
-                    ) : (
-                      <Badge variant="neutral">PENDING</Badge>
-                    )}
+                    {r ? <Badge variant={r.pass ? "pass" : "fail"}>{r.pass ? "PASS" : "FAIL"}</Badge> : <Badge variant="neutral">PENDING</Badge>}
                   </td>
                 </tr>
               );
@@ -91,6 +75,6 @@ export default function TestCaseSection() {
           </tbody>
         </table>
       </div>
-    </section>
+    </div>
   );
 }
