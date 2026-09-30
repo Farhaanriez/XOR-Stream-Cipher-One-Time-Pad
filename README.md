@@ -14,7 +14,11 @@ Proyek ini dibangun menggunakan **Next.js (App Router)**, **TypeScript**, **Tail
 ## 📌 Anggota Kelompok & Mata Kuliah
 - **Mata Kuliah**: Kriptografi dan Keamanan Informasi
 - **Topik**: XOR Stream Cipher & One-Time Pad (OTP)
-
+- 1. **Devina Lystriana 25/557558/PA/23425**
+  2. **Muhammad Azmi Noerfauzan 25/564333/PA/23761**
+  3. **JUNDI AHMAD AVATAR A.M KR.DOLE 25/564776/PA/23807**
+  4. **FARHAN RIZKY ALKARIM 25/568476/PA/23997**
+  5. **Randi Khansa Yafi Khalid 26/591574/NPA/20035**
 ---
 
 ## ✨ Fitur Utama
